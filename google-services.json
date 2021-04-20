@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "739502980996",
+    "project_id": "tema-7-dce1c",
+    "storage_bucket": "tema-7-dce1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739502980996:android:8918a5b33c0144b03267d1",
+        "android_client_info": {
+          "package_name": "com.tetliexyz.eventually"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739502980996-kmsga2t64fbfpq0f1l9nap4ecu2jfmkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6OLEHypi79mORwBYvntsGPW8HplK_rfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739502980996-kmsga2t64fbfpq0f1l9nap4ecu2jfmkm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "739502980996-fcak7tqh5v5fkoaikocvi6n28f2fihvh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tetliexyz.eventually"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
