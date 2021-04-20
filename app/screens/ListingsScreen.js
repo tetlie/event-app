@@ -37,7 +37,10 @@ function ListingsScreen({ navigation }) {
         renderItem={({ item }) => (
           <Card
             title={item.title}
-            subTitle={new Date(item.time.time_start.seconds).toLocaleString()}
+            subTitle={
+              item.time &&
+              new Date(item.time.time_start.seconds).toLocaleString()
+            }
             imageUrl={"bilde"}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             thumbnailUrl={"bilde"}

@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import {
@@ -8,12 +6,14 @@ import {
   FormPicker as Picker,
   SubmitButton,
 } from "../components/forms";
+import React, { useState } from "react";
+
 import CategoryPickerItem from "../components/CategoryPickerItem";
-import Screen from "../components/Screen";
 import FormImagePicker from "../components/forms/FormImagePicker";
-import listingsApi from "../api/listings";
-import useLocation from "../hooks/useLocation";
+import Screen from "../components/Screen";
+import { StyleSheet } from "react-native";
 import UploadScreen from "./UploadScreen";
+import listingsApi from "../api/listings";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -81,16 +81,14 @@ const categories = [
 ];
 
 function ListingEditScreen() {
-  const location = useLocation();
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const handleSubmit = async (listing, { resetForm }) => {
     setProgress(0);
     setUploadVisible(true);
-    const result = await listingsApi.addListing(
-      { ...listing, location },
-      (progress) => setProgress(progress)
+    const result = await listingsApi.addListing({ ...listing }, (progress) =>
+      setProgress(progress)
     );
 
     if (!result.ok) {

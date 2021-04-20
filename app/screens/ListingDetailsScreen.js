@@ -10,8 +10,13 @@ import colors from "../config/colors";
 function ListingDetailsScreen({ route }) {
   const event = route.params;
 
-  const timeStart = new Date(event.time.time_start.seconds).toLocaleString();
-  const timeEnd = new Date(event.time.time_end.seconds).toLocaleString();
+  let timeStart;
+  let timeEnd;
+
+  if (event.time) {
+    timeStart = new Date(event.time.time_start.seconds).toLocaleString();
+    timeEnd = new Date(event.time.time_end.seconds).toLocaleString();
+  }
 
   return (
     <View>
@@ -24,12 +29,14 @@ function ListingDetailsScreen({ route }) {
       <Image style={styles.image} tint="dark" />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{event.title}</Text>
-        <Text style={styles.price}>{event.location}</Text>
-        <Text style={styles.price}>{timeStart}</Text>
-        <Text>{event.description}</Text>
-        <Text>
-          {timeStart} — {timeEnd}
-        </Text>
+        {event.location && <Text style={styles.price}>{event.location}</Text>}
+        {event.time && <Text style={styles.price}>{timeStart}</Text>}
+        {event.description && <Text>{event.description}</Text>}
+        {event.time && (
+          <Text>
+            {timeStart} — {timeEnd}
+          </Text>
+        )}
         <Text style={styles.price}>{event.category}</Text>
         <View style={styles.userContainer}>
           <ListItem
