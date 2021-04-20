@@ -7,10 +7,10 @@ import Icon from "../components/Icon";
 import Screen from "../components/Screen";
 import authStorage from "../auth/storage";
 import colors from "../config/colors";
-import routes from "../navigation/routes";
 
 function AccountScreen({ navigation }) {
   const { user, setUser } = useContext(AuthContext);
+  // add firebase auth cotntext
 
   const handleLogOut = () => {
     setUser(null);
@@ -21,14 +21,28 @@ function AccountScreen({ navigation }) {
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <ListItem
-          title={user.name}
-          subTitle={user.email}
-          image={require("../assets/mosh.jpg")}
+          title="Marius"
+          subTitle="marius@domain.com"
+          image={require("../assets/tetlie.png")}
+        />
+      </View>
+      <View style={styles.container}>
+        <ListItem
+          title="My Events"
+          IconComponent={
+            <Icon name="calendar-edit" backgroundColor={colors.primary} />
+          }
+        />
+        <ListItem
+          title="My Calendar"
+          IconComponent={
+            <Icon name="calendar-heart" backgroundColor={colors.secondary} />
+          }
         />
       </View>
       <ListItem
         title="Log Out"
-        IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+        IconComponent={<Icon name="logout" backgroundColor={colors.danger} />}
         onPress={handleLogOut}
       />
     </Screen>
@@ -36,9 +50,6 @@ function AccountScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    backgroundColor: colors.light,
-  },
   container: {
     marginVertical: 20,
   },

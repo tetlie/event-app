@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
-
-import firebaseInstance from "../api/firebaseInstance";
+import React, { useEffect, useState } from "react";
 
 import Card from "../components/Card";
-import colors from "../config/colors";
-import routes from "../navigation/routes";
 import Screen from "../components/Screen";
+import colors from "../config/colors";
+import firebaseInstance from "../api/firebaseInstance";
+import routes from "../navigation/routes";
 
 function ListingsScreen({ navigation }) {
   const [events, setEvents] = useState(null);
@@ -55,7 +54,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 0,
     paddingBottom: 0,
-    backgroundColor: colors.light,
   },
 });
 

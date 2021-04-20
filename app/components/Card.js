@@ -1,7 +1,7 @@
-import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import { Image } from "react-native-expo-image-cache";
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
+import { Image } from "react-native-expo-image-cache";
+import React from "react";
 import Text from "./Text";
 import colors from "../config/colors";
 
@@ -11,7 +11,7 @@ function Card({ title, subTitle, imageUrl, onPress, thumbnailUrl }) {
       <View style={styles.card}>
         <Image
           style={styles.image}
-          tint="light"
+          tint="dark"
           preview={{ uri: thumbnailUrl }}
           uri={imageUrl}
         />
@@ -31,7 +31,7 @@ function Card({ title, subTitle, imageUrl, onPress, thumbnailUrl }) {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
     marginBottom: 20,
     overflow: "hidden",
   },

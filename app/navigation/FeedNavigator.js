@@ -1,13 +1,10 @@
-import React from "react";
-import { Button, View, StyleSheet } from "react-native";
-
-import { createStackNavigator } from "@react-navigation/stack";
 import { BlurView } from "expo-blur";
-
-import { createNativeStackNavigator } from "react-native-screens/native-stack";
-import ListingsScreen from "../screens/ListingsScreen";
 import ListingDetailsScreen from "../screens/ListingDetailsScreen";
-import routes from "./routes";
+import ListingsScreen from "../screens/ListingsScreen";
+import React from "react";
+import { StyleSheet } from "react-native";
+import colors from "../config/colors";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
@@ -17,10 +14,11 @@ const FeedNavigator = () => (
       name="Events"
       component={ListingsScreen}
       options={{
+        headerTintColor: colors.dark,
         headerTransparent: true,
         headerBackground: () => (
           <BlurView
-            tint="light"
+            tint="dark"
             intensity={100}
             style={StyleSheet.absoluteFill}
           />
@@ -31,10 +29,11 @@ const FeedNavigator = () => (
       name="ListingDetails"
       component={ListingDetailsScreen}
       options={({ route }) => ({
+        headerTintColor: colors.dark,
         headerTransparent: true,
         headerBackground: () => (
           <BlurView
-            tint="light"
+            tint="dark"
             intensity={100}
             style={StyleSheet.absoluteFill}
           />

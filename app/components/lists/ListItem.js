@@ -1,8 +1,8 @@
-import React from "react";
-import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React from "react";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import Text from "../Text";
 import colors from "../../config/colors";
 
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 15,
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
   },
   detailsContainer: {
     flex: 1,

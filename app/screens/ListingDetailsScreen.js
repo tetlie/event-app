@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { Image } from "react-native-expo-image-cache";
+import { StyleSheet, View } from "react-native";
 
-import colors from "../config/colors";
+import { Image } from "react-native-expo-image-cache";
 import ListItem from "../components/lists/ListItem";
+import Screen from "../components/Screen";
 import Text from "../components/Text";
+import colors from "../config/colors";
 
 function ListingDetailsScreen({ route }) {
   const event = route.params;
@@ -20,16 +21,20 @@ function ListingDetailsScreen({ route }) {
         tint="light"
         uri={event.images[0].url}
       /> */}
-      <View style={styles.image} />
+      <Image style={styles.image} tint="dark" />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{event.title}</Text>
+        <Text style={styles.price}>{event.location}</Text>
         <Text style={styles.price}>{timeStart}</Text>
-        <Text style={styles.price}>{timeEnd}</Text>
+        <Text>{event.description}</Text>
+        <Text>
+          {timeStart} — {timeEnd}
+        </Text>
         <Text style={styles.price}>{event.category}</Text>
         <View style={styles.userContainer}>
           <ListItem
-            image={require("../assets/mosh.jpg")}
-            title="Marius Tetlie"
+            image={require("../assets/tetlie.png")}
+            title="Marius"
             subTitle="5 Events"
           />
         </View>
