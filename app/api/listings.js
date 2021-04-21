@@ -10,7 +10,7 @@ export const addListing = async (listing) => {
   const eventRef = await eventCollection.add({
     user: "user.id",
     title: listing.title,
-    price: listing.price,
+    location: listing.location,
     category: listing.category.label,
     description: listing.description,
   });

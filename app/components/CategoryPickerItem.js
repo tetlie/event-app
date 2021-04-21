@@ -1,8 +1,9 @@
-import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import Icon from "./Icon";
+import React from "react";
 import Text from "./Text";
+import colors from "../config/colors";
 
 function CategoryPickerItem({ item, onPress }) {
   return (
@@ -25,8 +26,10 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignItems: "center",
     width: "33%",
+    backgroundColor: colors.white,
   },
   label: {
+    fontSize: 15,
     marginTop: 5,
     textAlign: "center",
   },

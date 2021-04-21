@@ -1,18 +1,18 @@
-import React, { useState } from "react";
 import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Modal,
   Button,
   FlatList,
+  Modal,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
 
-import Text from "./Text";
-import defaultStyles from "../config/styles";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
+import Text from "./Text";
+import defaultStyles from "../config/styles";
 
 function AppPicker({
   icon,
@@ -51,8 +51,8 @@ function AppPicker({
           />
         </View>
       </TouchableWithoutFeedback>
-      <Modal visible={modalVisible} animationType="slide">
-        <Screen>
+      <Modal animationType="slide" visible={modalVisible}>
+        <Screen style={styles.modal}>
           <Button title="Close" onPress={() => setModalVisible(false)} />
           <FlatList
             data={items}
@@ -85,6 +85,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  modal: {
+    backgroundColor: defaultStyles.colors.white,
   },
   placeholder: {
     color: defaultStyles.colors.medium,

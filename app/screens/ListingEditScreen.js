@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 
 import CategoryPickerItem from "../components/CategoryPickerItem";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import FormImagePicker from "../components/forms/FormImagePicker";
 import Screen from "../components/Screen";
 import { StyleSheet } from "react-native";
@@ -17,7 +18,7 @@ import listingsApi from "../api/listings";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
-  price: Yup.number().required().min(1).max(10000).label("Price"),
+  location: Yup.string().required().min(1).label("Location"),
   description: Yup.string().label("Description"),
   category: Yup.object().required().nullable().label("Category"),
   images: Yup.array().min(1, "Please select at least one image."),
@@ -25,55 +26,55 @@ const validationSchema = Yup.object().shape({
 
 const categories = [
   {
-    backgroundColor: "#fc5c65",
-    icon: "floor-lamp",
-    label: "Furniture",
+    backgroundColor: "#E51400",
+    icon: "guitar-acoustic",
+    label: "Concert",
     value: 1,
   },
   {
-    backgroundColor: "#fd9644",
-    icon: "car",
-    label: "Cars",
+    backgroundColor: "#A20025",
+    icon: "thought-bubble",
+    label: "Lecture",
     value: 2,
   },
   {
-    backgroundColor: "#fed330",
-    icon: "camera",
-    label: "Cameras",
+    backgroundColor: "#D80073",
+    icon: "food-fork-drink",
+    label: "Food",
     value: 3,
   },
   {
-    backgroundColor: "#26de81",
-    icon: "cards",
-    label: "Games",
+    backgroundColor: "#F472D0",
+    icon: "tshirt-crew",
+    label: "Shopping",
     value: 4,
   },
   {
-    backgroundColor: "#2bcbba",
-    icon: "shoe-heel",
-    label: "Clothing",
+    backgroundColor: "#AA00FF",
+    icon: "tennis-ball",
+    label: "Sports",
     value: 5,
   },
   {
-    backgroundColor: "#45aaf2",
-    icon: "basketball",
-    label: "Sports",
+    backgroundColor: "#6A00FF",
+    icon: "chart-bubble",
+    label: "Arts",
     value: 6,
   },
   {
-    backgroundColor: "#4b7bec",
+    backgroundColor: "#0050EF",
     icon: "headphones",
-    label: "Movies & Music",
+    label: "Celebrate",
     value: 7,
   },
   {
-    backgroundColor: "#a55eea",
+    backgroundColor: "#1BA1E2",
     icon: "book-open-variant",
-    label: "Books",
+    label: "Tutorial",
     value: 8,
   },
   {
-    backgroundColor: "#778ca3",
+    backgroundColor: "#00ABA9",
     icon: "application",
     label: "Other",
     value: 9,
@@ -104,7 +105,7 @@ function ListingEditScreen() {
       <Form
         initialValues={{
           title: "",
-          price: "",
+          location: "",
           description: "",
           category: null,
           images: [],
@@ -113,13 +114,24 @@ function ListingEditScreen() {
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />
-        <FormField maxLength={255} name="title" placeholder="Title" />
         <FormField
-          keyboardType="numeric"
-          maxLength={8}
-          name="price"
-          placeholder="Price"
-          width={120}
+          maxLength={255}
+          name="title"
+          placeholder="Title"
+          width="75%"
+        />
+        <FormField
+          maxLength={255}
+          name="location"
+          placeholder="Location"
+          width="50%"
+        />
+        <FormField
+          maxLength={255}
+          multiline
+          name="description"
+          numberOfLines={6}
+          placeholder="Description"
         />
         <Picker
           items={categories}
@@ -128,13 +140,6 @@ function ListingEditScreen() {
           PickerItemComponent={CategoryPickerItem}
           placeholder="Category"
           width="50%"
-        />
-        <FormField
-          maxLength={255}
-          multiline
-          name="description"
-          numberOfLines={3}
-          placeholder="Description"
         />
         <SubmitButton title="Post" />
       </Form>

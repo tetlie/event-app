@@ -1,18 +1,20 @@
-import React, { useState, useContext } from "react";
-import { StyleSheet, Image } from "react-native";
 import * as Yup from "yup";
-import jwtDecode from "jwt-decode";
 
-import Screen from "../components/Screen";
 import {
   ErrorMessage,
   Form,
   FormField,
   SubmitButton,
 } from "../components/forms";
-import authApi from "../api/auth";
+import { Image, StyleSheet } from "react-native";
+import React, { useContext, useState } from "react";
+
 import AuthContext from "../auth/context";
+import Screen from "../components/Screen";
+import authApi from "../api/auth";
 import authStorage from "../auth/storage";
+import firebaseInstance from "../api/firebaseInstance";
+import jwtDecode from "jwt-decode";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -24,12 +26,17 @@ function LoginScreen(props) {
   const [loginFailed, setLoginFailed] = useState(false);
 
   const handleSubmit = async ({ email, password }) => {
-    const result = await authApi.login(email, password);
-    if (!result.ok) setLoginFailed(true);
-    setLoginFailed(false);
-    const user = jwtDecode(result.data);
-    authContext.setUser(user);
-    authStorage.storeToken(result.data);
+    try {
+      const result = await firebaseInstance
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      console.log(result);
+
+      const user = result;
+      console.log(user);
+    } catch (error) {
+      console.log("En feil har oppstått");
+    }
   };
 
   return (
