@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { Image } from "react-native-expo-image-cache";
 import ListItem from "../components/lists/ListItem";
-import Screen from "../components/Screen";
+import React from "react";
 import Text from "../components/Text";
 import colors from "../config/colors";
 

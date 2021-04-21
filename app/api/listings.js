@@ -1,29 +1,25 @@
 import client from "./client";
 import firebaseInstance from "./firebaseInstance";
 
-const endpoint = "/listings";
+const endpoint = "events";
 
 const getListings = () => client.get(endpoint);
 
-export const addListing = async (listing, onUploadProgress) => {
-  firebaseInstance.firestore().collection("events").add({
+export const addListing = async (listing) => {
+  const eventCollection = firebaseInstance.firestore().collection(endpoint);
+  const eventRef = await eventCollection.add({
+    user: "user.id",
     title: listing.title,
     price: listing.price,
-    category: listing.category.value,
+    category: listing.category.label,
     description: listing.description,
   });
 
-  // listing.images.forEach((image, index) =>
-  //   data.append("images", {
-  //     name: "image" + index,
-  //     type: "image/jpeg",
-  //     uri: image,
-  //   })
-  // );
-
-  return client.post(endpoint, data, {
-    onUploadProgress: (progress) =>
-      onUploadProgress(progress.loaded / progress.total),
+  listing.images.forEach(async (image, index) => {
+    console.log(image);
+    const storageRef = firebaseInstance.storage().ref(eventRef.id);
+    const imageChild = storageRef.child(eventRef.id + "_" + index);
+    await imageChild.put(image[index]);
   });
 };
 
