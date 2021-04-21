@@ -82,14 +82,10 @@ const categories = [
 
 function ListingEditScreen() {
   const [uploadVisible, setUploadVisible] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   const handleSubmit = async (listing, { resetForm }) => {
-    setProgress(0);
     setUploadVisible(true);
-    const result = await listingsApi.addListing({ ...listing }, (progress) =>
-      setProgress(progress)
-    );
+    const result = await listingsApi.addListing({ ...listing });
 
     if (!result.ok) {
       setUploadVisible(false);
@@ -103,7 +99,6 @@ function ListingEditScreen() {
     <Screen style={styles.container}>
       <UploadScreen
         onDone={() => setUploadVisible(false)}
-        progress={progress}
         visible={uploadVisible}
       />
       <Form
