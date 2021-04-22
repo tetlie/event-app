@@ -9,6 +9,7 @@ import routes from "../navigation/routes";
 
 function ListingsScreen({ navigation }) {
   const [events, setEvents] = useState(null);
+  const [imageData, setImageData] = useState(null);
 
   const getData = async () => {
     let ref = firebaseInstance.firestore().collection("events");
@@ -21,13 +22,28 @@ function ListingsScreen({ navigation }) {
         });
       });
       setEvents(data);
-      console.log(events);
     });
+  };
+
+  const getImages = () => {
+    if (events) {
+      events.forEach(async (event) => {
+        const storageRef = firebaseInstance.storage().ref(event.id);
+        const imageChild = storageRef.child("0.jpeg");
+        const url = await imageChild.getDownloadURL();
+        setImageData(url);
+      });
+      // send dette til event-objektet
+    }
   };
 
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    getImages();
+  }, [events]);
 
   return (
     <Screen style={styles.screen}>
@@ -41,9 +57,9 @@ function ListingsScreen({ navigation }) {
               item.time &&
               new Date(item.time.time_start.seconds).toLocaleString()
             }
-            imageUrl={"bilde"}
+            imageUrl={imageData}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-            thumbnailUrl={"bilde"}
+            thumbnailUrl={imageData}
           />
         )}
       />

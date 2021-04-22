@@ -1,3 +1,4 @@
+import { Children } from "react";
 import client from "./client";
 import firebaseInstance from "./firebaseInstance";
 
@@ -15,11 +16,20 @@ export const addListing = async (listing) => {
     description: listing.description,
   });
 
-  listing.images.forEach(async (image, index) => {
-    console.log(image);
-    const storageRef = firebaseInstance.storage().ref(eventRef.id);
-    const imageChild = storageRef.child(eventRef.id + "_" + index);
-    await imageChild.put(image[index]);
+  const uploadImage = async (uri, index) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    var ref = firebaseInstance
+      .storage()
+      .ref()
+      .child(eventRef.id + "/" + index);
+
+    return ref.put(blob);
+  };
+
+  listing.images.forEach(async (uri, index) => {
+    uploadImage(uri, index);
   });
 };
 

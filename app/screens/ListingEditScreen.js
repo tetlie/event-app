@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 
 import CategoryPickerItem from "../components/CategoryPickerItem";
-import DateTimePicker from "@react-native-community/datetimepicker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
 import FormImagePicker from "../components/forms/FormImagePicker";
 import Screen from "../components/Screen";
 import { StyleSheet } from "react-native";
@@ -86,6 +86,8 @@ function ListingEditScreen() {
 
   const handleSubmit = async (listing, { resetForm }) => {
     setUploadVisible(true);
+
+    console.log("The listing:", listing);
     const result = await listingsApi.addListing({ ...listing });
 
     if (!result.ok) {

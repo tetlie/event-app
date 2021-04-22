@@ -23,20 +23,20 @@ function ListingDetailsScreen({ route }) {
         style={styles.image}
         preview={{ uri: event.images[0].thumbnailUrl }}
         tint="light"
-        uri={event.images[0].url}
+        uri={event.images[0].url}r
       /> */}
       <Image style={styles.image} tint="dark" />
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{event.title}</Text>
+        {event.title && <Text style={styles.title}>{event.title}</Text>}
         {event.location && <Text style={styles.price}>{event.location}</Text>}
         {event.time && <Text style={styles.price}>{timeStart}</Text>}
         {event.description && <Text>{event.description}</Text>}
-        {event.time && (
+        {/* {event.time && (
           <Text>
             {timeStart} — {timeEnd}
           </Text>
-        )}
-        <Text style={styles.price}>{event.category}</Text>
+        )} */}
+        {event.category && <Text style={styles.price}>{event.category}</Text>}
         <View style={styles.userContainer}>
           <ListItem
             image={require("../assets/tetlie.png")}
