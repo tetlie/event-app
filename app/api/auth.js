@@ -1,4 +1,3 @@
-import client from "./client";
 import firebaseInstance from "./firebaseInstance";
 
 // const login = (email, password) => client.post("/auth", { email, password });

@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 
 import CategoryPickerItem from "../components/CategoryPickerItem";
-// import DateTimePicker from "@react-native-community/datetimepicker";
+import FormDateTimePicker from "../components/forms/FormDateTimePicker";
 import FormImagePicker from "../components/forms/FormImagePicker";
 import Screen from "../components/Screen";
 import { StyleSheet } from "react-native";
@@ -116,6 +116,7 @@ function ListingEditScreen() {
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />
+        <FormDateTimePicker name="time_start" />
         <FormField
           maxLength={255}
           name="title"
@@ -135,6 +136,7 @@ function ListingEditScreen() {
           numberOfLines={6}
           placeholder="Description"
         />
+
         <Picker
           items={categories}
           name="category"

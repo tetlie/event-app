@@ -25,24 +25,19 @@ function ListingsScreen({ navigation }) {
     });
   };
 
-  const getImages = () => {
-    if (events) {
-      events.forEach(async (event) => {
-        const storageRef = firebaseInstance.storage().ref(event.id);
-        const imageChild = storageRef.child("0.jpeg");
-        const url = await imageChild.getDownloadURL();
-        setImageData(url);
-      });
-      // send dette til event-objektet
-    }
-  };
-
   useEffect(() => {
     getData();
   }, []);
 
   useEffect(() => {
-    getImages();
+    const getImages = () => {
+      events.forEach(async (event) => {
+        const storageRef = firebaseInstance.storage().ref(event.id);
+        const imageChild = storageRef.child("0.jpeg" || "0");
+        const url = await imageChild.getDownloadURL();
+        setImageData(url);
+      });
+    };
   }, [events]);
 
   return (
@@ -53,10 +48,7 @@ function ListingsScreen({ navigation }) {
         renderItem={({ item }) => (
           <Card
             title={item.title}
-            subTitle={
-              item.time &&
-              new Date(item.time.time_start.seconds).toLocaleString()
-            }
+            subTitle={item.time && Date(item.time.seconds)}
             imageUrl={imageData}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             thumbnailUrl={imageData}

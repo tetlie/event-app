@@ -9,14 +9,6 @@ import colors from "../config/colors";
 function ListingDetailsScreen({ route }) {
   const event = route.params;
 
-  let timeStart;
-  let timeEnd;
-
-  if (event.time) {
-    timeStart = new Date(event.time.time_start.seconds).toLocaleString();
-    timeEnd = new Date(event.time.time_end.seconds).toLocaleString();
-  }
-
   return (
     <View>
       {/* <Image
@@ -29,13 +21,10 @@ function ListingDetailsScreen({ route }) {
       <View style={styles.detailsContainer}>
         {event.title && <Text style={styles.title}>{event.title}</Text>}
         {event.location && <Text style={styles.price}>{event.location}</Text>}
-        {event.time && <Text style={styles.price}>{timeStart}</Text>}
+        {event.time && (
+          <Text style={styles.price}>{Date(event.time.seconds)}</Text>
+        )}
         {event.description && <Text>{event.description}</Text>}
-        {/* {event.time && (
-          <Text>
-            {timeStart} — {timeEnd}
-          </Text>
-        )} */}
         {event.category && <Text style={styles.price}>{event.category}</Text>}
         <View style={styles.userContainer}>
           <ListItem

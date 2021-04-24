@@ -1,12 +1,12 @@
 import { Children } from "react";
-import client from "./client";
 import firebaseInstance from "./firebaseInstance";
 
 const endpoint = "events";
 
-const getListings = () => client.get(endpoint);
+// const getListings = () => client.get(endpoint);
 
 export const addListing = async (listing) => {
+  console.log(listing);
   const eventCollection = firebaseInstance.firestore().collection(endpoint);
   const eventRef = await eventCollection.add({
     user: "user.id",
@@ -14,6 +14,7 @@ export const addListing = async (listing) => {
     location: listing.location,
     category: listing.category.label,
     description: listing.description,
+    time: listing.time_start,
   });
 
   const uploadImage = async (uri, index) => {
@@ -35,5 +36,4 @@ export const addListing = async (listing) => {
 
 export default {
   addListing,
-  getListings,
 };
