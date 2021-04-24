@@ -12,8 +12,6 @@ enableScreens();
 export default function App() {
   const userContext = useAuth();
 
-  console.log("App.js", userContext);
-
   return (
     <AuthProvider>
       <OfflineNotice />
