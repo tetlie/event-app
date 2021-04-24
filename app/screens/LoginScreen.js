@@ -6,15 +6,11 @@ import {
   FormField,
   SubmitButton,
 } from "../components/forms";
-import { Image, StyleSheet } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
-import AuthContext from "../auth/context";
 import Screen from "../components/Screen";
-import authApi from "../api/auth";
-import authStorage from "../auth/storage";
+import { StyleSheet } from "react-native";
 import firebaseInstance from "../api/firebaseInstance";
-import jwtDecode from "jwt-decode";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -22,27 +18,18 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen(props) {
-  const authContext = useContext(AuthContext);
   const [loginFailed, setLoginFailed] = useState(false);
 
   const handleSubmit = async ({ email, password }) => {
     try {
-      const result = await firebaseInstance
-        .auth()
-        .signInWithEmailAndPassword(email, password);
-      console.log(result);
-
-      const user = result;
-      console.log(user);
+      await firebaseInstance.auth().signInWithEmailAndPassword(email, password);
     } catch (error) {
-      console.log("En feil har oppstått");
+      console.log("En feil har oppstått", error);
     }
   };
 
   return (
     <Screen style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/logo-red.png")} />
-
       <Form
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
@@ -79,13 +66,6 @@ function LoginScreen(props) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-  },
-  logo: {
-    width: 80,
-    height: 80,
-    alignSelf: "center",
-    marginTop: 50,
-    marginBottom: 20,
   },
 });
 

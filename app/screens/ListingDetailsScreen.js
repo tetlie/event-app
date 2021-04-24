@@ -28,6 +28,7 @@ function ListingDetailsScreen({ route }) {
         {event.category && <Text style={styles.price}>{event.category}</Text>}
         <View style={styles.userContainer}>
           <ListItem
+            // save user to object and list out
             image={require("../assets/tetlie.png")}
             title="Marius"
             subTitle="5 Events"

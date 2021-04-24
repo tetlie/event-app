@@ -1,9 +1,6 @@
-import { Children } from "react";
 import firebaseInstance from "./firebaseInstance";
 
 const endpoint = "events";
-
-// const getListings = () => client.get(endpoint);
 
 export const addListing = async (listing) => {
   console.log(listing);

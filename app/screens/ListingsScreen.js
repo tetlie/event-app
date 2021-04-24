@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 
 import Card from "../components/Card";
 import Screen from "../components/Screen";
-import colors from "../config/colors";
 import firebaseInstance from "../api/firebaseInstance";
 import routes from "../navigation/routes";
 

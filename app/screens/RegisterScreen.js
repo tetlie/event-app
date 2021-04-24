@@ -1,9 +1,11 @@
-import React from "react";
-import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
-import Screen from "../components/Screen";
 import { Form, FormField, SubmitButton } from "../components/forms";
+import React, { useState } from "react";
+
+import Screen from "../components/Screen";
+import { StyleSheet } from "react-native";
+import firebaseInstance from "../api/firebaseInstance";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -12,11 +14,24 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen() {
+  const [firebaseError, setFirebaseError] = useState(null);
+  const handleSubmit = async ({ name, email, password }) => {
+    try {
+      const user = await firebaseInstance
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+
+      user.user.updateProfile({ displayName: name });
+    } catch (error) {
+      setFirebaseError(error.message);
+    }
+  };
+
   return (
     <Screen style={styles.container}>
       <Form
         initialValues={{ name: "", email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormField

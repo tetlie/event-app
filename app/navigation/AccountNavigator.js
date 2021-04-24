@@ -1,6 +1,5 @@
 import AccountScreen from "../screens/AccountScreen";
 import { BlurView } from "expo-blur";
-import MessagesScreen from "../screens/MessagesScreen";
 import React from "react";
 import { StyleSheet } from "react-native";
 import colors from "../config/colors";

@@ -1,37 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import jwtDecode from "jwt-decode";
-import { enableScreens } from "react-native-screens";
-
-import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
+import { AuthProvider } from "./app/auth/storage";
+import { NavigationContainer } from "@react-navigation/native";
 import OfflineNotice from "./app/components/OfflineNotice";
-import AuthNavigator from "./app/navigation/AuthNavigator";
-import AuthContext from "./app/auth/context";
-import authStorage from "./app/auth/storage";
+import React from "react";
+import { enableScreens } from "react-native-screens";
+import navigationTheme from "./app/navigation/navigationTheme";
+import { useAuth } from "./app/auth/storage";
 
 enableScreens();
 
 export default function App() {
-  const [user, setUser] = useState();
+  const userContext = useAuth();
 
-  const restoreToken = async () => {
-    const token = await authStorage.getToken();
-    if (!token) return;
-    setUser(jwtDecode(token));
-  };
-
-  useEffect(() => {
-    restoreToken();
-  }, []);
+  console.log("App.js", userContext);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthProvider>
       <OfflineNotice />
       <NavigationContainer theme={navigationTheme}>
-        {user ? <AppNavigator /> : <AuthNavigator />}
-        {/* <AppNavigator /> */}
+        {/* {userContext.user ? <AppNavigator /> : <AuthNavigator />} */}
+        <AppNavigator />
       </NavigationContainer>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }

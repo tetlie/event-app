@@ -1,31 +1,32 @@
-import { FlatList, StyleSheet, View } from "react-native";
-import { ListItem, ListItemSeparator } from "../components/lists";
-import React, { useContext } from "react";
+import { StyleSheet, View } from "react-native";
 
-import AuthContext from "../auth/context";
 import Icon from "../components/Icon";
+import { ListItem } from "../components/lists";
+import React from "react";
 import Screen from "../components/Screen";
-import authStorage from "../auth/storage";
 import colors from "../config/colors";
+import firebaseInstance from "../api/firebaseInstance";
+import { useAuth } from "../auth/storage";
 
-function AccountScreen({ navigation }) {
-  const { user, setUser } = useContext(AuthContext);
-  // add firebase auth cotntext
+function AccountScreen() {
+  const userContext = useAuth();
+  console.log("Account", userContext);
 
-  const handleLogOut = () => {
-    setUser(null);
-    authStorage.removeToken();
+  const handleLogOut = async () => {
+    await firebaseInstance.auth().signOut();
   };
 
   return (
     <Screen style={styles.screen}>
-      <View style={styles.container}>
-        <ListItem
-          title="Marius"
-          subTitle="marius@domain.com"
-          image={require("../assets/tetlie.png")}
-        />
-      </View>
+      {userContext && (
+        <View style={styles.container}>
+          <ListItem
+            title={userContext.displayName && userContext.displayName}
+            subTitle={userContext.email}
+            image={require("../assets/tetlie.png")}
+          />
+        </View>
+      )}
       <View style={styles.container}>
         <ListItem
           title="My Events"
