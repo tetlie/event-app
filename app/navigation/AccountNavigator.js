@@ -14,7 +14,6 @@ const AccountNavigator = () => (
       component={AccountScreen}
       options={({ route }) => ({
         headerTintColor: colors.dark,
-        headerTransparent: true,
         headerBackground: () => (
           <BlurView
             tint="dark"

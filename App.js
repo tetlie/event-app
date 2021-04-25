@@ -1,4 +1,5 @@
 import AppNavigator from "./app/navigation/AppNavigator";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 import { AuthProvider } from "./app/auth/storage";
 import { NavigationContainer } from "@react-navigation/native";
 import OfflineNotice from "./app/components/OfflineNotice";

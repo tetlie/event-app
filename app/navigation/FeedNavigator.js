@@ -15,7 +15,6 @@ const FeedNavigator = () => (
       component={ListingsScreen}
       options={{
         headerTintColor: colors.dark,
-        headerTransparent: true,
         headerBackground: () => (
           <BlurView
             tint="dark"
@@ -30,7 +29,6 @@ const FeedNavigator = () => (
       component={ListingDetailsScreen}
       options={({ route }) => ({
         headerTintColor: colors.dark,
-        headerTransparent: true,
         headerBackground: () => (
           <BlurView
             tint="dark"
