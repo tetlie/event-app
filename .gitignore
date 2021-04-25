@@ -8,10 +8,10 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+
+# firebase
 google-services.json
 GoogleService-Info.plist
 
 # macOS
 .DS_Store
-
-#did it update
