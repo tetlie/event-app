@@ -12,7 +12,7 @@ function ListingsScreen({ navigation }) {
 
   const getData = async () => {
     let ref = firebaseInstance.firestore().collection("events");
-    ref.onSnapshot((snapshot) => {
+    const unsubscribe = ref.onSnapshot((snapshot) => {
       let data = [];
       snapshot.forEach((doc) => {
         data.push({
@@ -22,6 +22,7 @@ function ListingsScreen({ navigation }) {
       });
       setEvents(data);
     });
+    return unsubscribe;
   };
 
   useEffect(() => {
@@ -29,14 +30,14 @@ function ListingsScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    const getImages = () => {
-      events.forEach(async (event) => {
-        const storageRef = firebaseInstance.storage().ref(event.id);
-        const imageChild = storageRef.child("0.jpeg" || "0");
-        const url = await imageChild.getDownloadURL();
-        setImageData(url);
-      });
-    };
+    if (!events) return;
+    events.forEach(async (event) => {
+      const storageRef = firebaseInstance.storage().ref(event.id);
+      const imageChild = storageRef.child("0");
+      const url = await imageChild.getDownloadURL();
+      setImageData(url);
+      console.log("hallo", { imageData });
+    });
   }, [events]);
 
   return (
