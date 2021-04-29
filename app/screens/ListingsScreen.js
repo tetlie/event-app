@@ -43,11 +43,11 @@ function ListingsScreen({ navigation }) {
     <Screen style={styles.screen}>
       <FlatList
         data={events}
-        keyExtractor={(listing) => listing.id.toString()}
+        keyExtractor={(event) => event.id.toString()}
         renderItem={({ item }) => (
           <Card
             title={item.title}
-            subTitle={item.time && Date(item.time.seconds)}
+            subTitle={item.time && item.time.toDate().toDateString()}
             imageUrl={imageData}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             thumbnailUrl={imageData}

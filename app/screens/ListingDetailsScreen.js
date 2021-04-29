@@ -22,7 +22,14 @@ function ListingDetailsScreen({ route }) {
         {event.title && <Text style={styles.title}>{event.title}</Text>}
         {event.location && <Text style={styles.price}>{event.location}</Text>}
         {event.time && (
-          <Text style={styles.price}>{Date(event.time.seconds)}</Text>
+          <>
+            <Text style={styles.price}>
+              {event.time.toDate().toDateString()}
+            </Text>
+            <Text style={styles.price}>
+              {event.time.toDate().toLocaleTimeString()}
+            </Text>
+          </>
         )}
         {event.description && <Text>{event.description}</Text>}
         {event.category && <Text style={styles.price}>{event.category}</Text>}
