@@ -8,16 +8,14 @@ import colors from "../config/colors";
 
 function ListingDetailsScreen({ route }) {
   const event = route.params;
+  const image = route.imageData;
+
+  console.log(event);
 
   return (
     <View>
-      {/* <Image
-        style={styles.image}
-        preview={{ uri: event.images[0].thumbnailUrl }}
-        tint="light"
-        uri={event.images[0].url}r
-      /> */}
-      <Image style={styles.image} tint="dark" />
+      <Image style={styles.image} preview={image} tint="light" uri={image} />
+      {/* <Image style={styles.image} tint="dark" /> */}
       <View style={styles.detailsContainer}>
         {event.title && <Text style={styles.title}>{event.title}</Text>}
         {event.location && <Text style={styles.price}>{event.location}</Text>}
@@ -35,10 +33,9 @@ function ListingDetailsScreen({ route }) {
         {event.category && <Text style={styles.price}>{event.category}</Text>}
         <View style={styles.userContainer}>
           <ListItem
-            // save user to object and list out
             image={require("../assets/tetlie.png")}
-            title="Marius"
-            subTitle="5 Events"
+            title={event.user.displayName}
+            // subTitle="5 Events"
           />
         </View>
       </View>

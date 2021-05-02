@@ -8,37 +8,27 @@ import routes from "../navigation/routes";
 
 function ListingsScreen({ navigation }) {
   const [events, setEvents] = useState(null);
-  const [imageData, setImageData] = useState(null);
 
-  const getData = async () => {
+  useEffect(() => {
     let ref = firebaseInstance.firestore().collection("events");
     const unsubscribe = ref.onSnapshot((snapshot) => {
       let data = [];
-      snapshot.forEach((doc) => {
+      snapshot.forEach(async (doc) => {
+        // const storageRef = firebaseInstance.storage().ref(doc.id);
+        // const imageChild = storageRef.child("0");
+        // const url = await Promise.all([imageChild.getDownloadURL()]);
+
         data.push({
           id: doc.id,
+          // image: url[0],
           ...doc.data(),
         });
       });
       setEvents(data);
+      console.log(events);
     });
     return unsubscribe;
-  };
-
-  useEffect(() => {
-    getData();
   }, []);
-
-  useEffect(() => {
-    if (!events) return;
-    events.forEach(async (event) => {
-      const storageRef = firebaseInstance.storage().ref(event.id);
-      const imageChild = storageRef.child("0");
-      const url = await imageChild.getDownloadURL();
-      setImageData(url);
-      console.log("hallo", { imageData });
-    });
-  }, [events]);
 
   return (
     <Screen style={styles.screen}>
@@ -49,9 +39,9 @@ function ListingsScreen({ navigation }) {
           <Card
             title={item.title}
             subTitle={item.time && item.time.toDate().toDateString()}
-            imageUrl={imageData}
+            imageUrl={item.image}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-            thumbnailUrl={imageData}
+            thumbnailUrl={item.image}
           />
         )}
       />

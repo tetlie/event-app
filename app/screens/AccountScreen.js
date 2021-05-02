@@ -10,7 +10,6 @@ import { useAuth } from "../auth/storage";
 
 function AccountScreen() {
   const userContext = useAuth();
-  console.log("Account", userContext);
 
   const handleLogOut = async () => {
     await firebaseInstance.auth().signOut();

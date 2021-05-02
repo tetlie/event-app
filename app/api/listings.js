@@ -1,12 +1,18 @@
 import firebaseInstance from "./firebaseInstance";
+import { useAuth } from "../auth/storage";
 
 const endpoint = "events";
 
 export const addListing = async (listing) => {
+  const userContext = useAuth();
+
   console.log(listing);
   const eventCollection = firebaseInstance.firestore().collection(endpoint);
   const eventRef = await eventCollection.add({
-    user: "user.id",
+    user: {
+      uid: userContext.uid,
+      displayName: userContext.displayName,
+    },
     title: listing.title,
     location: listing.location,
     category: listing.category.label,
