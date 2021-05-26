@@ -14,13 +14,8 @@ function ListingsScreen({ navigation }) {
     const unsubscribe = ref.onSnapshot((snapshot) => {
       let data = [];
       snapshot.forEach(async (doc) => {
-        // const storageRef = firebaseInstance.storage().ref(doc.id);
-        // const imageChild = storageRef.child("0");
-        // const url = await Promise.all([imageChild.getDownloadURL()]);
-
         data.push({
           id: doc.id,
-          // image: url[0],
           ...doc.data(),
         });
       });

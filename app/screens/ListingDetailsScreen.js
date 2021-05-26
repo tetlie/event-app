@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Image } from "react-native-expo-image-cache";
 import ListItem from "../components/lists/ListItem";
@@ -8,14 +8,15 @@ import colors from "../config/colors";
 
 function ListingDetailsScreen({ route }) {
   const event = route.params;
-  const image = route.imageData;
-
-  console.log(event);
 
   return (
-    <View>
-      <Image style={styles.image} preview={image} tint="light" uri={image} />
-      {/* <Image style={styles.image} tint="dark" /> */}
+    <ScrollView>
+      <Image
+        style={styles.image}
+        preview={event.image}
+        tint="dark"
+        uri={event.image}
+      />
       <View style={styles.detailsContainer}>
         {event.title && <Text style={styles.title}>{event.title}</Text>}
         {event.location && <Text style={styles.price}>{event.location}</Text>}
@@ -34,12 +35,11 @@ function ListingDetailsScreen({ route }) {
         <View style={styles.userContainer}>
           <ListItem
             image={require("../assets/tetlie.png")}
-            title={event.user.displayName}
-            // subTitle="5 Events"
+            title={event.creator.displayName}
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
