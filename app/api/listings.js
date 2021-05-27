@@ -3,21 +3,31 @@ import { useAuth } from "../auth/auth";
 
 const endpoint = "events";
 
-export const addListing = async (listing) => {
-  const userContext = useAuth();
+export const addListing = async ({
+  images,
+  title,
+  description,
+  location,
+  category,
+  time_start,
+}) => {
+  const { user } = useAuth();
 
-  console.log(listing);
-  const eventCollection = firebaseInstance.firestore().collection(endpoint);
+  const date = new Date(time_start);
+  const firebaseDate = new firebaseInstance.firestore.Timestamp.fromDate(date);
+
+  const eventCollection = firebaseInstance.firestore().collection("events");
   const eventRef = await eventCollection.add({
-    user: {
-      uid: userContext.uid,
-      displayName: userContext.displayName,
+    creator: {
+      uid: user.uid,
+      displayName: user.displayName,
     },
-    title: listing.title,
-    location: listing.location,
-    category: listing.category.label,
-    description: listing.description,
-    time: listing.time_start,
+    title: title,
+    description: description,
+    category: category,
+    location: location,
+    created: firebaseInstance.firestore.FieldValue.serverTimestamp(),
+    time: firebaseDate,
   });
 
   const uploadImage = async (uri, index) => {
@@ -27,12 +37,16 @@ export const addListing = async (listing) => {
     var ref = firebaseInstance
       .storage()
       .ref()
-      .child(eventRef.id + "/" + index);
+      .child(`${user.uid}/${eventRef.id}`);
 
-    return ref.put(blob);
+    const imagechild = await ref.put(blob);
+    const url = await imageChild.getDownloadURL();
+    eventCollection.doc(eventRef.id).update({ image: url });
+
+    return imagechild;
   };
 
-  listing.images.forEach(async (uri, index) => {
+  images.forEach(async (uri, index) => {
     uploadImage(uri, index);
   });
 };
@@ -41,31 +55,21 @@ export default {
   addListing,
 };
 
-// export const addListing = async ({
-//   images,
-//   title,
-//   description,
-//   location,
-//   category,
-//   time_start,
-// }) => {
+// export const addListing = async (listing) => {
 //   const userContext = useAuth();
 
-//   const date = new Date(time_start);
-//   const firebaseDate = new firebaseInstance.firestore.Timestamp.fromDate(date);
-
-//   const eventCollection = firebaseInstance.firestore().collection("events");
+//   console.log(listing);
+//   const eventCollection = firebaseInstance.firestore().collection(endpoint);
 //   const eventRef = await eventCollection.add({
-//     creator: {
+//     user: {
 //       uid: userContext.uid,
 //       displayName: userContext.displayName,
 //     },
-//     title: title,
-//     description: description,
-//     category: category,
-//     location: location,
-//     created: firebaseInstance.firestore.FieldValue.serverTimestamp(),
-//     time: firebaseDate,
+//     title: listing.title,
+//     location: listing.location,
+//     category: listing.category.label,
+//     description: listing.description,
+//     time: listing.time_start,
 //   });
 
 //   const uploadImage = async (uri, index) => {
@@ -75,16 +79,12 @@ export default {
 //     var ref = firebaseInstance
 //       .storage()
 //       .ref()
-//       .child(`${userContext.uid}/${eventRef.id}`);
+//       .child(eventRef.id + "/" + index);
 
-//     const imagechild = await ref.put(blob);
-//     const url = await imageChild.getDownloadURL();
-//     eventCollection.doc(eventRef.id).update({ image: url });
-
-//     return imagechild;
+//     return ref.put(blob);
 //   };
 
-//   images.forEach(async (uri, index) => {
+//   listing.images.forEach(async (uri, index) => {
 //     uploadImage(uri, index);
 //   });
 // };

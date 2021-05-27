@@ -83,8 +83,6 @@ const categories = [
 ];
 
 function ListingEditScreen() {
-  const userContext = useAuth();
-
   const [uploadVisible, setUploadVisible] = useState(false);
 
   const handleSubmit = async (listing, { resetForm }) => {

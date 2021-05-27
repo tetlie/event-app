@@ -9,7 +9,7 @@ import firebaseInstance from "../api/firebaseInstance";
 import { useAuth } from "../auth/auth";
 
 function AccountScreen() {
-  const userContext = useAuth();
+  const { user } = useAuth();
 
   const handleLogOut = async () => {
     await firebaseInstance.auth().signOut();
@@ -17,11 +17,11 @@ function AccountScreen() {
 
   return (
     <Screen style={styles.screen}>
-      {userContext && (
+      {user && (
         <View style={styles.container}>
           <ListItem
-            title={userContext.displayName && userContext.displayName}
-            subTitle={userContext.email}
+            title={user.displayName && user.displayName}
+            subTitle={user.email}
             image={require("../assets/tetlie.png")}
           />
         </View>

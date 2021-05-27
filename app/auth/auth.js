@@ -2,12 +2,11 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 import firebaseInstance from "../api/firebaseInstance";
 
-const AuthContext = createContext({ user: null });
+const AuthContext = createContext({ user: null, favorites: [] });
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
-
-  const [userData, setUserData] = useState();
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     return firebaseInstance.auth().onIdTokenChanged(async (user) => {
@@ -20,21 +19,6 @@ export function AuthProvider({ children }) {
   });
 
   useEffect(() => {
-    if (user) {
-      let ref = firebaseInstance.firestore().collection("users").doc(user.uid);
-
-      ref.onSnapshot((docSnapshot) => {
-        let data = {
-          id: docSnapshot.id,
-          ...docSnapshot.data(),
-        };
-        setUserData(data);
-        console.log(userData);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
     const handle = setInterval(async () => {
       const user = firebaseInstance.auth().currentUser;
       if (user) await user.getIdToken(true);
@@ -42,8 +26,21 @@ export function AuthProvider({ children }) {
     return clearInterval(handle);
   });
 
+  useEffect(() => {
+    const getFavorites = async () => {
+      const collection = firebaseInstance.firestore().collection("users");
+      const doc = collection.doc(user?.uid);
+      const unsubscribe = doc.onSnapshot((doc) => {
+        const favoritesData = doc.data() && [...doc.data().eventsSubscribed];
+        setFavorites(favoritesData);
+      });
+      return () => unsubscribe();
+    };
+    getFavorites();
+  }, [user]);
+
   return (
-    <AuthContext.Provider value={user}>
+    <AuthContext.Provider value={{ user, favorites }}>
       <>{children}</>
     </AuthContext.Provider>
   );
