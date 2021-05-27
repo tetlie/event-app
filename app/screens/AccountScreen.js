@@ -6,7 +6,7 @@ import React from "react";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import firebaseInstance from "../api/firebaseInstance";
-import { useAuth } from "../auth/storage";
+import { useAuth } from "../auth/auth";
 
 function AccountScreen() {
   const userContext = useAuth();

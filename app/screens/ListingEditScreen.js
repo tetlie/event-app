@@ -15,7 +15,7 @@ import Screen from "../components/Screen";
 import { StyleSheet } from "react-native";
 import UploadScreen from "./UploadScreen";
 import listingsApi from "../api/listings";
-import { useAuth } from "../auth/storage";
+import { useAuth } from "../auth/auth";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -84,7 +84,6 @@ const categories = [
 
 function ListingEditScreen() {
   const userContext = useAuth();
-  // console.log("Account LISTINGEDIT", userContext);
 
   const [uploadVisible, setUploadVisible] = useState(false);
 
