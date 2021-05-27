@@ -3,4 +3,5 @@ export default Object.freeze({
   LISTING_EDIT: "ListingEdit",
   LOGIN: "Login",
   REGISTER: "Register",
+  FAVORITES: "Favorites",
 });

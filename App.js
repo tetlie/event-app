@@ -11,13 +11,13 @@ import { useAuth } from "./app/auth/auth";
 enableScreens();
 
 export default function App() {
-  const userContext = useAuth();
+  const { user } = useAuth();
 
   return (
     <AuthProvider>
       <OfflineNotice />
       <NavigationContainer theme={navigationTheme}>
-        {/* {userContext.user ? <AppNavigator /> : <AuthNavigator />} */}
+        {/* {user ? <AppNavigator /> : <AuthNavigator />} */}
         <AppNavigator />
       </NavigationContainer>
     </AuthProvider>

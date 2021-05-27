@@ -1,7 +1,4 @@
 import firebaseInstance from "./firebaseInstance";
-import { useAuth } from "../auth/auth";
-
-const endpoint = "events";
 
 export const addListing = async ({
   images,
@@ -10,17 +7,17 @@ export const addListing = async ({
   location,
   category,
   time_start,
+  displayName,
+  uid,
 }) => {
-  const { user } = useAuth();
-
   const date = new Date(time_start);
   const firebaseDate = new firebaseInstance.firestore.Timestamp.fromDate(date);
 
   const eventCollection = firebaseInstance.firestore().collection("events");
   const eventRef = await eventCollection.add({
     creator: {
-      uid: user.uid,
-      displayName: user.displayName,
+      uid: uid,
+      displayName: displayName,
     },
     title: title,
     description: description,
@@ -34,10 +31,7 @@ export const addListing = async ({
     const response = await fetch(uri);
     const blob = await response.blob();
 
-    var ref = firebaseInstance
-      .storage()
-      .ref()
-      .child(`${user.uid}/${eventRef.id}`);
+    var ref = firebaseInstance.storage().ref().child(`${uid}/${eventRef.id}`);
 
     const imagechild = await ref.put(blob);
     const url = await imageChild.getDownloadURL();

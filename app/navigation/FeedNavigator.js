@@ -13,7 +13,7 @@ const FeedNavigator = () => (
     <Stack.Screen
       name="Events"
       component={ListingsScreen}
-      options={{
+      options={({ route }) => ({
         headerTintColor: colors.dark,
         headerBackground: () => (
           <BlurView
@@ -22,7 +22,7 @@ const FeedNavigator = () => (
             style={StyleSheet.absoluteFill}
           />
         ),
-      }}
+      })}
     />
     <Stack.Screen
       name="ListingDetails"

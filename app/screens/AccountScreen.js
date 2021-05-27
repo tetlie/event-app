@@ -1,14 +1,34 @@
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
+import { ListItem, ListItemSeparator } from "../components/lists";
 
 import Icon from "../components/Icon";
-import { ListItem } from "../components/lists";
 import React from "react";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import firebaseInstance from "../api/firebaseInstance";
+import routes from "../navigation/routes";
 import { useAuth } from "../auth/auth";
 
-function AccountScreen() {
+const menuItems = [
+  {
+    title: "My Listings",
+    icon: {
+      name: "format-list-bulleted",
+      backgroundColor: colors.primary,
+    },
+    targetScreen: routes.FAVORITES,
+  },
+  {
+    title: "Favorites",
+    icon: {
+      name: "email",
+      backgroundColor: colors.secondary,
+    },
+    targetScreen: routes.FAVORITES,
+  },
+];
+
+function AccountScreen({ navigation }) {
   const { user } = useAuth();
 
   const handleLogOut = async () => {
@@ -27,17 +47,22 @@ function AccountScreen() {
         </View>
       )}
       <View style={styles.container}>
-        <ListItem
-          title="My Events"
-          IconComponent={
-            <Icon name="calendar-edit" backgroundColor={colors.primary} />
-          }
-        />
-        <ListItem
-          title="My Calendar"
-          IconComponent={
-            <Icon name="calendar-heart" backgroundColor={colors.secondary} />
-          }
+        <FlatList
+          data={menuItems}
+          keyExtractor={(menuItem) => menuItem.title}
+          ItemSeparatorComponent={ListItemSeparator}
+          renderItem={({ item }) => (
+            <ListItem
+              title={item.title}
+              IconComponent={
+                <Icon
+                  name={item.icon.name}
+                  backgroundColor={item.icon.backgroundColor}
+                />
+              }
+              onPress={() => navigation.navigate(item.targetScreen)}
+            />
+          )}
         />
       </View>
       <ListItem
