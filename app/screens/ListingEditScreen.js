@@ -88,23 +88,27 @@ function ListingEditScreen() {
   const [uploadVisible, setUploadVisible] = useState(false);
 
   const handleSubmit = async (listing, { resetForm }) => {
-    setUploadVisible(true);
+    try {
+      setUploadVisible(true);
 
-    const data = { displayName: user.displayName, uid: user.uid, ...listing };
+      const data = { displayName: user.displayName, uid: user.uid, ...listing };
 
-    console.log({ data });
-    const result = await listingsApi.addListing({
-      displayName: user.displayName,
-      uid: user.uid,
-      ...listing,
-    });
+      console.log({ data });
+      const result = await listingsApi.addListing({
+        displayName: user.displayName,
+        uid: user.uid,
+        ...listing,
+      });
 
-    if (!result.ok) {
-      setUploadVisible(false);
-      return alert("Could not save the listing");
+      if (!result.ok) {
+        setUploadVisible(false);
+        return alert("Could not save the listing");
+      }
+
+      resetForm();
+    } catch (error) {
+      console.log(error);
     }
-
-    resetForm();
   };
 
   return (

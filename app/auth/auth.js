@@ -9,21 +9,14 @@ export function AuthProvider({ children }) {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    return firebaseInstance.auth().onIdTokenChanged(async (user) => {
-      if (!user) {
-        setUser(null);
+    firebaseInstance.auth().onAuthStateChanged(function (currentuser) {
+      console.log("Auth has changed", { currentuser });
+      if (currentuser) {
+        setUser(currentuser);
       } else {
-        setUser(user);
+        setUser(null);
       }
     });
-  });
-
-  useEffect(() => {
-    const handle = setInterval(async () => {
-      const user = firebaseInstance.auth().currentUser;
-      if (user) await user.getIdToken(true);
-    }, 10 * 60 * 1000);
-    return clearInterval(handle);
   });
 
   useEffect(() => {
@@ -46,6 +39,7 @@ export function AuthProvider({ children }) {
   );
 }
 
+// getAuthContext
 export const useAuth = () => {
   return useContext(AuthContext);
 };
