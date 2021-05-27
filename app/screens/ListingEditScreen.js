@@ -14,8 +14,8 @@ import FormImagePicker from "../components/forms/FormImagePicker";
 import Screen from "../components/Screen";
 import { StyleSheet } from "react-native";
 import UploadScreen from "./UploadScreen";
+import { getAuthContext } from "../auth/auth";
 import listingsApi from "../api/listings";
-import { useAuth } from "../auth/auth";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -83,7 +83,7 @@ const categories = [
 ];
 
 function ListingEditScreen() {
-  const { user } = useAuth();
+  const { user } = getAuthContext();
 
   const [uploadVisible, setUploadVisible] = useState(false);
 

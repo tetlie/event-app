@@ -6,8 +6,8 @@ import React from "react";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import firebaseInstance from "../api/firebaseInstance";
+import { getAuthContext } from "../auth/auth";
 import routes from "../navigation/routes";
-import { useAuth } from "../auth/auth";
 
 const menuItems = [
   {
@@ -29,7 +29,7 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
-  const { user } = useAuth();
+  const { user } = getAuthContext();
 
   const handleLogOut = async () => {
     await firebaseInstance.auth().signOut();

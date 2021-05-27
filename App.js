@@ -5,8 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import OfflineNotice from "./app/components/OfflineNotice";
 import React from "react";
 import { enableScreens } from "react-native-screens";
+import { getAuthContext } from "./app/auth/auth";
 import navigationTheme from "./app/navigation/navigationTheme";
-import { useAuth } from "./app/auth/auth";
 
 enableScreens();
 
@@ -19,7 +19,7 @@ export default function App() {
 }
 
 export function Container() {
-  const { user } = useAuth();
+  const { user } = getAuthContext();
 
   return (
     <>

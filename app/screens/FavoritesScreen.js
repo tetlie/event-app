@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Screen from "../components/Screen";
 import firebaseInstance from "../api/firebaseInstance";
+import { getAuthContext } from "../auth/auth";
 import routes from "../navigation/routes";
-import { useAuth } from "../auth/auth";
 
 function FavoritesScreen({ navigation }) {
-  const { favorites } = useAuth();
+  const { favorites } = getAuthContext();
 
   const [events, setEvents] = useState(null);
 
