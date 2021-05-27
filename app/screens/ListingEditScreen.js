@@ -145,7 +145,6 @@ function ListingEditScreen() {
           numberOfLines={6}
           placeholder="Description"
         />
-
         <Picker
           items={categories}
           name="category"

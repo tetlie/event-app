@@ -21,7 +21,7 @@ export const addListing = async ({
     },
     title: title,
     description: description,
-    category: category,
+    category: category.label,
     location: location,
     created: firebaseInstance.firestore.FieldValue.serverTimestamp(),
     time: firebaseDate,
