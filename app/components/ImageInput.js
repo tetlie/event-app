@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableWithoutFeedback,
-  Alert,
-} from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
+import React, { useEffect } from "react";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 
 function ImageInput({ imageUri, onChangeImage }) {

@@ -20,7 +20,6 @@ function ListingsScreen({ navigation }) {
         });
       });
       setEvents(data);
-      console.log(events);
     });
     return unsubscribe;
   }, []);

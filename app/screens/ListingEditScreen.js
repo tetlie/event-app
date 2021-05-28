@@ -92,8 +92,6 @@ function ListingEditScreen() {
       setUploadVisible(true);
 
       const data = { displayName: user.displayName, uid: user.uid, ...listing };
-
-      console.log({ data });
       const result = await listingsApi.addListing({
         displayName: user.displayName,
         uid: user.uid,

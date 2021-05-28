@@ -47,7 +47,6 @@ async function uploadImage(uri, eventRef, uid) {
 
     const imagechild = await ref.put(blob);
     const url = await imageChild.getDownloadURL();
-    console.log({ url });
     eventCollection.doc(eventRef.id).update({ image: url });
 
     return imagechild;

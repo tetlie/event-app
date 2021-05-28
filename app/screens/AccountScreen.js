@@ -53,6 +53,7 @@ function AccountScreen({ navigation }) {
           ItemSeparatorComponent={ListItemSeparator}
           renderItem={({ item }) => (
             <ListItem
+              hint={`Press to go to ${item.title}`}
               title={item.title}
               IconComponent={
                 <Icon
@@ -67,6 +68,7 @@ function AccountScreen({ navigation }) {
       </View>
       <ListItem
         title="Log Out"
+        hint="Press to log out"
         IconComponent={<Icon name="logout" backgroundColor={colors.danger} />}
         onPress={handleLogOut}
       />

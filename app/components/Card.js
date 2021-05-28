@@ -7,7 +7,10 @@ import colors from "../config/colors";
 
 function Card({ title, subTitle, imageUrl, onPress, thumbnailUrl }) {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback
+      onPress={onPress}
+      accessibilityHint="Press for event details"
+    >
       <View style={styles.card}>
         <Image
           style={styles.image}

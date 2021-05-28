@@ -8,7 +8,10 @@ import colors from "../config/colors";
 function CategoryPickerItem({ item, onPress }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity
+        accessibilityHint="Click to select category"
+        onPress={onPress}
+      >
         <Icon
           backgroundColor={item.backgroundColor}
           name={item.icon}

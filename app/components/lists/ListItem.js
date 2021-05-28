@@ -13,10 +13,15 @@ function ListItem({
   IconComponent,
   onPress,
   renderRightActions,
+  hint,
 }) {
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+      <TouchableHighlight
+        underlayColor={colors.light}
+        onPress={onPress}
+        accessibilityHint={hint}
+      >
         <View style={styles.container}>
           {IconComponent}
           {image && <Image style={styles.image} source={image} />}

@@ -1,11 +1,11 @@
-import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
+import React from "react";
 import Text from "./Text";
 
 function PickerItem({ item, onPress }) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} accessibilityHint="Click to pick">
       <Text style={styles.text}>{item.label}</Text>
     </TouchableOpacity>
   );

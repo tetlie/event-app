@@ -10,7 +10,6 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     firebaseInstance.auth().onAuthStateChanged(function (currentuser) {
-      console.log("Auth has changed", { currentuser });
       if (currentuser) {
         setUser(currentuser);
       } else {

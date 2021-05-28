@@ -33,7 +33,6 @@ function FavoritesScreen({ navigation }) {
 
   useEffect(() => {
     getFavoritesData();
-    console.log({ favorites });
   }, [favorites]);
 
   return (
